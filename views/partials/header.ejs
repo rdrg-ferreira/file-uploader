@@ -1,0 +1,11 @@
+<header class="flex space-between">
+    <a href="/"><%# home %></a>
+    <% if (locals.currentUser) { %>
+        <%# dont show log in and sign up options %>
+    <% } else { %>
+        <div class="header-options">
+            <a href="/log-in" class="button">Login</a>
+            <a href="/sign-up" class="button">Sign Up</a>
+        </div>
+    <% } %>
+</header>

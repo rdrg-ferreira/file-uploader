@@ -13,24 +13,26 @@ datasource db {
 }
 
 model User { 
-  id    Int     @id @default(autoincrement()) 
+  id    Int     @id @default(autoincrement())
   username String  @unique
   name  String
   password String
-  // posts Post[]
-} 
-// model Post { 
-//   id        Int     @id @default(autoincrement()) 
-//   title     String
-//   content   String?
-//   published Boolean @default(false) 
-//   author    User    @relation(fields: [authorId], references: [id]) 
-//   authorId  Int
-// } 
+  files File[]
+}
 
 model Session {
   id        String   @id
   sid       String   @unique
   data      String   
   expiresAt   DateTime
+}
+
+model File {
+  id          Int       @id @default(autoincrement())
+  name        String
+  size        Float // bytes
+  path        String    @unique
+  owner       User      @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+  uploadTime  DateTime  @default(now())
 }

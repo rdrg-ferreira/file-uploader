@@ -48,12 +48,12 @@ exports.createUser = [
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).render("sign-up-form", { errors: errors.array() });
+            return res.status(400).render("signUpForm", { errors: errors.array() });
         }
 
         const { name, username, password } = matchedData(req);
         const hashedPassword = await bcrypt.hash(password, 10);
-        const rows = await db.createUser(name, username, hashedPassword);
+        const user = await db.createUser(name, username, hashedPassword);
         res.redirect("/log-in");
     },
 ];
@@ -87,3 +87,25 @@ exports.logOutUser = (req, res, next) => {
         res.redirect("/");
     });
 }
+
+exports.getAddFilePage = (req, res) => {
+    res.render("addFileForm");
+}
+
+const validateFiles = [];
+
+exports.uploadFile = [
+    validateFiles,
+    async (req, res) => {
+        if (!req.user) return res.redirect("/");
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render("addFileForm", { errors: errors.array() });
+        }
+
+        const files = req.files;
+        const count = await db.uploadFile(files, req.user.id);
+        res.redirect("/");
+    }
+]

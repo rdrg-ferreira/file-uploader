@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <script src="/scripts/index.js" defer></script>
+    <title>Add a file</title>
+</head>
+
+<body>
+    <%- include('partials/header') %>
+    <main>
+        <% if (!locals.currentUser) { %>
+            <div class="page-card">
+                <h1>You need to be logged in to access this feature</h1>
+            </div>
+        <% } else { %>
+            <div class="form-card">
+                <h1>Add a file</h1>
+                <form action="/add-file" method="POST" enctype="multipart/form-data">
+                    <div class="input">
+                        <div class="dropbox flex flex-column align-center">
+                            <label for="file">Drop your files here or click to add them</label>
+                            <div class="file-container flex"></div>
+                            <input id="file" name="file" type="file" multiple/>
+                        </div>
+                        <p class="field-error"><%= locals.errors && errors.some(e => e.path === "file") ? errors.find(e => e.path === "file").msg : " " %></p>
+                    </div>
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+        <% } %>
+    </main>
+</body>
+
+</html>

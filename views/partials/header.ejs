@@ -1,6 +1,7 @@
 <header class="flex space-between">
     <a href="/">File Uploader</a>
     <% if (locals.currentUser) { %>
+        <a href="/add-file">Add a file</a>
         <%- include('profileHandler') %>
     <% } else { %>
         <div class="header-options">

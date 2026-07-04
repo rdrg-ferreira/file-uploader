@@ -19,26 +19,26 @@
             <div class="form-card">
                 <h1>Welcome</h1>
                 <form action="/sign-up" method="POST" class="stack">
-                <div class="input">
-                    <label for="name">Name</label>
-                    <input id="name" name="name" type="text" />
-                    <p class="field-error"><%= locals.errors && errors.some(e => e.path === "name") ? errors.find(e => e.path === "name").msg : " " %></p>
-                </div>
-                <div class="input">
-                    <label for="username">Username</label>
-                    <input id="username" name="username" type="text" />
-                    <p class="field-error"><%= locals.errors && errors.some(e => e.path === "username") ? errors.find(e => e.path === "username").msg : " " %></p>
-                </div>
-                <div class="input">
-                    <label for="password">Password</label>
-                    <input id="password" name="password" type="password" />
-                    <p class="field-error"><%= locals.errors && errors.some(e => e.path === "password") ? errors.find(e => e.path === "password").msg : " " %></p>
-                </div>
-                <div class="input">
-                    <label for="confirmPassword">Confirm password</label>
-                    <input id="confirmPassword" name="confirmPassword" type="password" />
-                    <p class="field-error"><%= locals.errors && errors.some(e => e.path === "confirmPassword") ? errors.find(e => e.path === "confirmPassword").msg : " " %></p>
-                </div>
+                    <div class="input">
+                        <label for="name">Name</label>
+                        <input id="name" name="name" type="text" />
+                        <p class="field-error"><%= locals.errors && errors.some(e => e.path === "name") ? errors.find(e => e.path === "name").msg : " " %></p>
+                    </div>
+                    <div class="input">
+                        <label for="username">Username</label>
+                        <input id="username" name="username" type="text" />
+                        <p class="field-error"><%= locals.errors && errors.some(e => e.path === "username") ? errors.find(e => e.path === "username").msg : " " %></p>
+                    </div>
+                    <div class="input">
+                        <label for="password">Password</label>
+                        <input id="password" name="password" type="password" />
+                        <p class="field-error"><%= locals.errors && errors.some(e => e.path === "password") ? errors.find(e => e.path === "password").msg : " " %></p>
+                    </div>
+                    <div class="input">
+                        <label for="confirmPassword">Confirm password</label>
+                        <input id="confirmPassword" name="confirmPassword" type="password" />
+                        <p class="field-error"><%= locals.errors && errors.some(e => e.path === "confirmPassword") ? errors.find(e => e.path === "confirmPassword").msg : " " %></p>
+                    </div>
                 <button type="submit">Sign Up</button>
                 </form>
             </div>

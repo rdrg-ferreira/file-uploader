@@ -27,3 +27,10 @@ model User {
 //   author    User    @relation(fields: [authorId], references: [id]) 
 //   authorId  Int
 // } 
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   
+  expiresAt   DateTime
+}

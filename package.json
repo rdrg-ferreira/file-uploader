@@ -1,5 +1,5 @@
 {
-  "name": "express-app-template-1",
+  "name": "file-uploader",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,19 +9,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rdrg-ferreira/express-app-template-1.git"
+    "url": "git+https://github.com/rdrg-ferreira/file-uploader.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/rdrg-ferreira/express-app-template-1/issues"
+    "url": "https://github.com/rdrg-ferreira/file-uploader/issues"
   },
-  "homepage": "https://github.com/rdrg-ferreira/express-app-template-1/",
+  "homepage": "https://github.com/rdrg-ferreira/file-uploader/",
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "@quixo3/prisma-session-store": "^3.1.21",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",

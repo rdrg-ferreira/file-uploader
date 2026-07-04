@@ -70,6 +70,7 @@ exports.getLogInPage = (req, res) => {
         loginMessage,
         loginErrorField,
     });
+    req.session.messages = undefined;
 }
 
 exports.logInUser = (req, res, next) => {

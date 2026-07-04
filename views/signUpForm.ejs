@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
     <script src="/scripts/index.js" defer></script>
     <title>Sign Up</title>
 </head>
@@ -20,7 +20,7 @@
                 <h1>Welcome</h1>
                 <form action="/sign-up" method="POST" class="stack">
                 <div class="input">
-                    <label for="name">Full Name</label>
+                    <label for="name">Name</label>
                     <input id="name" name="name" type="text" />
                     <p class="field-error"><%= locals.errors && errors.some(e => e.path === "name") ? errors.find(e => e.path === "name").msg : " " %></p>
                 </div>

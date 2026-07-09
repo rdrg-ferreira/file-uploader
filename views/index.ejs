@@ -4,13 +4,80 @@
 <head>
     <title>File Uploader</title>
     <link rel="stylesheet" href="/styles/styles.css">
+    <script defer>
+        document.addEventListener("DOMContentLoaded", () => {
+            const deleteFileModal = document.querySelector("#delete-file");
+            const deleteFolderModal = document.querySelector("#delete-folder");
+
+            window.openFileModal = (id) => {
+                const form = deleteFileModal.querySelector("form");
+                form.action = `/delete-file/${id}`;
+                deleteFileModal.showModal();
+            };
+
+            window.deleteFolderModal = deleteFolderModal;
+            window.deleteFileModal = deleteFileModal;
+        });
+    </script>
 </head>
 
 <body>
     <%- include('partials/header') %>
         <main>
-
+            <aside class="flex flex-column">
+                <a href="/add-folder?parentId=<%= currentFolderId ?? "" %>" class="button">New Folder</a>
+                <a href="/add-file?folderId=<%= currentFolderId ?? "" %>" class="button">New File</a>
+                <% if (currentFolderId) { %>
+                    <button onclick="deleteFolderModal.showModal()">Delete Folder</button>
+                <% } %>
+            </aside>
+            <div id="folder-view">
+                <% if (currentFolderId) { %>
+                    <% if (parentId) { %>
+                        <a href="/folder/<%= parentId %>">Go back</a>
+                    <% } else { %>
+                        <a href="/">Go back</a>
+                    <% } %>
+                <% } %>
+                <div class="main grid">
+                    <div class="info grid">
+                        <span>Name</span>
+                        <span>Size</span>
+                        <span>Created</span>
+                    </div>
+                    <% if ((locals.folders || locals.files) && !locals.error) { %>
+                        <div class="container grid">
+                            <% folders.forEach(f => { %>
+                                <%- include('partials/item', { f, type: "folder" }) %>
+                            <% }) %>
+                            <% files.forEach(f => { %>
+                                <%- include('partials/item', { f, type: "file" }) %>
+                            <% }) %>
+                        </div>
+                    <% } else if (locals.error) { %>
+                        <h2 class="information"><%= locals.error %></h2>
+                    <% } else { %>
+                        <h2 class="information">No files or folders to display</h2>
+                    <% } %>
+                </div>
+            </div>
         </main>
+
+        <dialog id="delete-folder">
+            <h2>Are you sure you want to delete this folder and all the content inside it?</h2>
+            <form action="/delete-folder/<%= currentFolderId ?? "" %>" method="POST">
+                <button type="button" onclick="deleteFolderModal.close()">No</button>
+                <button type="submit">Yes</button>
+            </form>
+        </dialog>
+
+        <dialog id="delete-file">
+            <h2>Are you sure you want to delete this file?</h2>
+            <form action="/delete-file/:fileId" method="POST">
+                <button type="button" onclick="deleteFileModal.close()">No</button>
+                <button type="submit">Yes</button>
+            </form>
+        </dialog>
 </body>
 
 </html>

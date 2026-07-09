@@ -18,6 +18,7 @@ model User {
   name  String
   password String
   files File[]
+  folders Folder[]
 }
 
 model Session {
@@ -35,4 +36,18 @@ model File {
   owner       User      @relation(fields: [ownerId], references: [id])
   ownerId     Int
   uploadTime  DateTime  @default(now())
+  folder      Folder?   @relation(fields: [folderId], references: [id])
+  folderId    Int?
+}
+
+model Folder {
+  id          Int       @id @default(autoincrement())
+  name        String
+  files       File[]
+  parentId    Int?
+  parent      Folder?   @relation("FolderStructure", fields: [parentId], references: [id])
+  subfolders  Folder[]  @relation("FolderStructure")
+  uploadTime  DateTime  @default(now())
+  owner       User      @relation(fields: [ownerId], references: [id])
+  ownerId     Int
 }

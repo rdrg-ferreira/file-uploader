@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/styles/styles.css">
     <script src="/scripts/index.js" defer></script>
-    <title>Login</title>
+    <title>File Uploader - Login</title>
 </head>
 
 <body>
@@ -16,6 +16,7 @@
         <% } else { %>
             <div class="form-card">
                 <h1>Welcome back</h1>
+                <p>Don't have an account yet? Click <a href="/sign-up">here</a> to sign up!</p>
                 <form action="/log-in" method="POST" class="stack">
                     <div class="input">
                         <label for="username">Username</label>

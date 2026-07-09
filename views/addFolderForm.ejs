@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <script src="/scripts/index.js" defer></script>
+    <title>File Uploader - Add a folder</title>
+</head>
+
+<body>
+    <%- include('partials/header') %>
+    <main>
+        <% if (!locals.currentUser) { %>
+            <div class="page-card">
+                <h1>You need to be logged in to access this feature</h1>
+            </div>
+        <% } else { %>
+            <div class="form-card">
+                <h1>Add a folder</h1>
+                <form action="/add-folder" method="POST">
+                    <input type="hidden" name="parentId" value="<%= parentId || '' %>">
+                    <div class="input">
+                        <label for="name">Name</label>
+                        <input id="name" name="name" type="text"/>
+                        <p class="field-error"><%= locals.errors && errors.some(e => e.path === "name") ? errors.find(e => e.path === "name").msg : " " %></p>
+                    </div>
+                    <button type="submit">Create</button>
+                </form>
+            </div>
+        <% } %>
+    </main>
+</body>
+
+</html>

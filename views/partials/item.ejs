@@ -1,0 +1,19 @@
+<% if (type === "folder") { %>
+    <a href="/folder/<%= f.id %>" class="item">
+        <img src="/assets/folder_icon.png" alt="folder" class="item-img">
+        <span class="item-name"><%= f.name %></span>
+        <span class="item-size">——</span>
+        <span class="item-created"><%= new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(new Date(f.uploadTime)) %></span>
+    </a>
+<% } else { %>
+    <div class="item">
+        <img src="/assets/file_icon.png" alt="file" class="item-img">
+        <span class="item-name"><%= f.name %></span>
+        <span class="item-size"><%= Number.parseFloat(f.size / 1024).toFixed(2) %> kB</span>
+        <span class="item-created"><%= new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric" }).format(new Date(f.uploadTime)) %></span>
+        <ul class="dropdown">
+            <li><a href="/download/<%= f.id %>" class="item-download button">Download</a></li>
+            <li><button onclick="openFileModal('<%= f.id %>')">Delete</button></li>
+        </ul>
+    </div>
+<% } %>

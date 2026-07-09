@@ -26,5 +26,13 @@ router.get("/log-out", controller.logOutUser);
 
 router.get("/add-file", controller.getAddFilePage);
 router.post("/add-file", upload.array("file"), controller.uploadFile);
+router.post("/delete-file/:fileId", controller.deleteFile);
+
+router.get("/add-folder", controller.getAddFolderPage);
+router.post("/add-folder", controller.uploadFolder);
+router.post("/delete-folder/:folderId", controller.deleteFolder);
+
+router.get("/folder/:folderId", controller.getFolder);
+router.get("/download/:fileId", controller.downloadFile);
 
 module.exports = router;

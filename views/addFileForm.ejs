@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/styles/styles.css">
     <script src="/scripts/index.js" defer></script>
-    <title>Add a file</title>
+    <title>File Uploader - Add a file</title>
 </head>
 
 <body>
@@ -19,6 +19,7 @@
             <div class="form-card">
                 <h1>Add a file</h1>
                 <form action="/add-file" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="folderId" value="<%= folderId || '' %>">
                     <div class="input">
                         <div class="dropbox flex flex-column align-center">
                             <label for="file">Drop your files here or click to add them</label>

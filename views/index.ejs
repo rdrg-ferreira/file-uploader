@@ -4,6 +4,7 @@
 <head>
     <title>File Uploader</title>
     <link rel="stylesheet" href="/styles/styles.css">
+    <script src="/scripts/index.js" defer></script>
     <script defer>
         document.addEventListener("DOMContentLoaded", () => {
             const deleteFileModal = document.querySelector("#delete-file");
@@ -23,7 +24,7 @@
 
 <body>
     <%- include('partials/header') %>
-        <main>
+        <main class="flex">
             <aside class="flex flex-column">
                 <a href="/add-folder?parentId=<%= currentFolderId ?? "" %>" class="button">New Folder</a>
                 <a href="/add-file?folderId=<%= currentFolderId ?? "" %>" class="button">New File</a>

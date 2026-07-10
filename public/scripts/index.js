@@ -102,3 +102,25 @@ if (addFileDropbox && addFileInput) {
         addFileInput.files = dataTransfer.files;
     });
 }
+
+const profile = document.querySelector("header > .profile");
+const porfileDropdown = profile.querySelector(".dropdown");
+
+if (profile && porfileDropdown) {
+    profile.addEventListener("click", () => {
+        porfileDropdown.classList.toggle("visible");
+    });
+}
+
+const items = document.querySelectorAll("#folder-view .container .item");
+if (items) {
+    items.forEach(i => {
+        if (i.tagName === "DIV") {
+            const options = i.querySelector("img[alt='options']");
+            const itemDropdown = i.querySelector(".dropdown");
+            options.addEventListener("click", () => {
+                itemDropdown.classList.toggle("visible");
+            });
+        }
+    });
+}

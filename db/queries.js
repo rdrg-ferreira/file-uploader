@@ -22,15 +22,15 @@ exports.createUser = async (name, username, password) => {
     });
 }
 
-exports.uploadFile = async (files, ownerId, folderId) => {
-    return await prisma.file.createMany({
-        data: files.map(file => ({
+exports.uploadFile = async (file, ownerId, folderId, path) => {
+    return await prisma.file.create({
+        data: {
             name: file.originalname,
             size: file.size,
-            path: file.path,
+            path: path,
             ownerId,
             folderId,
-        })),
+        },
     });
 }
 

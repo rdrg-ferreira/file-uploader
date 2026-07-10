@@ -1,7 +1,9 @@
 const db = require("../db/queries");
-const { body, validationResult, matchedData } = require("express-validator");
+const { body, check, validationResult, matchedData } = require("express-validator");
 const passport = require("../passport/passport");
 const bcrypt = require("bcryptjs");
+const supabase = require("../db/storage");
+const multer = require("multer");
 
 exports.getIndex = async (req, res) => {
     if (!req.user) return res.redirect("/log-in");
@@ -102,25 +104,43 @@ exports.getAddFilePage = (req, res) => {
     res.render("addFileForm", { folderId });
 }
 
-const validateFiles = [];
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage, limits: { files: 10, fileSize: 2097152 } }).array("file");
 
-exports.uploadFile = [
-    validateFiles,
-    async (req, res) => {
-        if (!req.user) return res.redirect("/");
+exports.uploadFile = (req, res, next) => {
+    if (!req.user) return res.redirect("/");
 
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).render("addFileForm", { errors: errors.array() });
+    upload(req, res, async function (err) {
+        
+        if (err instanceof multer.MulterError) {
+            const errors = [];
+            if (err.code === "LIMIT_FILE_COUNT") errors.push({ path: "file", msg: "You can't upload more than 10 files at a time" });
+            else if (err.code === "LIMIT_FILE_SIZE") errors.push({ path: "file", msg: "You can't upload a file with more than 2MB" });
+            
+            return res.status(400).render("addFileForm", { errors, folderId: req.body.folderId });
+        } 
+        
+        if (err) return next(err);
+
+        try {
+            const files = req.files || [];
+            const folderId = req.body.folderId;
+
+            await Promise.all(files.map(async (f) => {
+                const metadata = await supabase.uploadFile(f, req.user.id);
+                if (metadata) {
+                    await db.uploadFile(f, req.user.id, folderId ? Number(folderId) : null, metadata.path);
+                }
+            }));
+
+            if (folderId) return res.redirect(`/folder/${folderId}`);
+            return res.redirect("/");
+            
+        } catch (dbError) {
+            return next(dbError);
         }
-
-        const files = req.files;
-        const folderId = req.body.folderId;
-        const count = await db.uploadFile(files, req.user.id, folderId ? Number(folderId) : null);
-        if (folderId) res.redirect(`/folder/${folderId}`);
-        else res.redirect("/");
-    }
-];
+    });
+};
 
 exports.getAddFolderPage = (req, res) => {
     const { parentId } = req.query;
@@ -202,7 +222,14 @@ exports.downloadFile = async (req, res) => {
         });
     }
 
-    return res.download(file.path, file.name);
+    const blob = await supabase.downloadFile(file.path);
+    if (!blob) return res.render("notFound404");
+
+    const buffer = Buffer.from(await blob.arrayBuffer());
+
+    res.setHeader("Content-Disposition", `attachment; filename="${file.name}"`);
+    res.setHeader("Content-Type", blob.type || "application/octet-stream");
+    return res.send(buffer);
 }
 
 exports.deleteFile = async (req, res) => {
@@ -228,7 +255,11 @@ exports.deleteFile = async (req, res) => {
         });
     }
 
+    const data = await supabase.deleteFile(file.path);
+    if (!data) return res.render("notFound404");
+
     await db.deleteFile(fileId);
+
     if (file.folderId) res.redirect(`/folder/${file.folderId}`);
     else res.redirect("/");
 }

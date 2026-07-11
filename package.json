@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "setup": "node setup-template.js",
+    "build_and_pre_deploy": "npm install && npx prisma migrate deploy",
     "dev": "node --env-file-if-exists=.env --watch app.js"
   },
   "repository": {

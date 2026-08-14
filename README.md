@@ -22,7 +22,7 @@ Follow these steps to get a local copy of the project up and running.
 ### Prerequisites
 * [NodeJs & npm][node-npm-install-guide] (Node v22.x or higher & npm v10.x or higher)
 * [psql][psql-install-guide]
-* [Supabase account][supabase-url] (Then create a new project, go to Storage and create a bucket)
+* [Supabase account][supabase-url] (Then create a new project, go to Storage and create a bucket named "files")
 
 ### Installation
 1. Clone the repo

@@ -27,7 +27,7 @@ Follow these steps to get a local copy of the project up and running.
 ### Installation
 1. Clone the repo
     ```sh
-    git clone https://github.com/rdrg-ferreira/shopping-cart
+    git clone https://github.com/rdrg-ferreira/file-uploader
     ```
 2. Install packages
    ```sh
@@ -57,7 +57,6 @@ Follow these steps to get a local copy of the project up and running.
 <!-- links and images -->
 [express-url]: https://expressjs.com
 [ejs-url]: https://ejs.co
-[express-validator-url]: https://express-validator.github.io/docs/
 [postgresql-url]: https://www.postgresql.org
 [node-npm-install-guide]: https://nodejs.org/en/download
 [psql-install-guide]: https://www.postgresql.org/download/
@@ -71,8 +70,3 @@ Follow these steps to get a local copy of the project up and running.
 [postgresql-shield]: https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white
 [supabase-shield]: https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=fff
 [prisma-shield]: https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=fff
-
-
-
-
-

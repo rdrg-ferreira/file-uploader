@@ -2,7 +2,7 @@
 
 A bare-bones Google Drive app built with [Express.js][express-url], [PostgreSQL][postgresql-url] and [Supabase][supabase-url].
 
-![Items Page](./screenshots/main.png)
+<img width="1475" height="907" alt="example" src="https://github.com/user-attachments/assets/418cdaee-509b-489b-8d88-72abf218425b" />
 
 ## Overview
 
